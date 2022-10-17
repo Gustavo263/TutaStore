@@ -33,7 +33,7 @@
                             <a class="nav-link" href="{% url "book:book_list" %}">Livros</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="navbarDropdown"
+                            <a class="nav-link dropdown-toggle d-none d-md-block fw500" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categorias
                                 <i class="ps-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -66,7 +66,7 @@
                     </button>
 
                     {% if user.is_authenticated %}
-                    <a type="button" role="button" href="#"
+                    <a type="button" role="button" href="{% url "account:logout" %}"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -79,7 +79,7 @@
                         <span class="fs15 fw500">Sair</span>
                     </a>
                     {% else %}
-                    <a type="button" role="button" href="#"
+                    <a type="button" role="button" href="{% url "account:login" %}"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -89,12 +89,12 @@
                                 <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
                             </svg>
                         </div>
-                        <span class="fs15 fw500">Login</span>
+                        <span class="fs15 fw500">Entrar</span>
                     </a>
                     {% endif %}
 
 
-                    <a type="button" role="button" href=""
+                    <a type="button" role="button" href="{% url "account:dashboard" %}"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"

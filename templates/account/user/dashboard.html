@@ -1,0 +1,20 @@
+{% extends "../../store/base.html" %} 
+{% load static %} 
+{% block title %}Dashboard{%endblock %} 
+{% block content %}
+
+<main class="pt-5">
+  <div class="container" style="max-width: 1000px">
+    <div class="col-12">
+      <h1 class="h2">Seu Painel</h1>
+    </div>
+    <div class="col-12 d-flex justify-content-between">
+      <div>Gerencie seus <b>pedidos</b> e dados pessoais</div>
+      <div><a href="{% url "account:edit_details" %}">Detalhes de alteração</a></div>
+    </div>
+    <hr />
+  </div>
+  <div class="container" style="max-width: 1000px">
+    <div class="row g-3">
+
+{% endblock %}
