@@ -64,9 +64,15 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Accounts"
         verbose_name_plural = "Accounts"
-        ordering = ("-created",)
 
-    
+    def email_user(self, subject, message):
+        send_mail(
+            subject,
+            message,
+            'l@1.com',
+            [self.email],
+            fail_silently=False,
+        )
+
     def __str__(self):
         return self.user_name
-    

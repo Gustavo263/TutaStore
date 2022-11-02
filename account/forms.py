@@ -65,7 +65,7 @@ class RegistrationForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
 
     email = forms.EmailField(
-        label='Account email (can not be changed)', max_length=200, widget=forms.TextInput(
+        label='E-mail da conta (não pode ser alterado)', max_length=200, widget=forms.TextInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'}))
 
     user_name = forms.CharField(
@@ -75,6 +75,7 @@ class UserEditForm(forms.ModelForm):
     first_name = forms.CharField(
         label='Username', min_length=4, max_length=50, widget=forms.TextInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-lastname'}))
+    
 
     class Meta:
         model = UserBase
@@ -84,6 +85,7 @@ class UserEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].required = True
         self.fields['email'].required = True
+        
 
 
 class PwdResetForm(PasswordResetForm):
