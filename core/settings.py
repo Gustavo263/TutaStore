@@ -136,17 +136,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 BASKET_SESSION_ID = "basket"
 
+os.environ.setdefault("STRIPE_PUBLISHABLE_KEY", "pk_test_51LuiYnFI1DNn2ggLR4SWUi7OCUZted9QKctsh8YHDnfHa6xPH1jkhiTaglocKIsXKLkeQkrZQ0oeF1hBB8UYhqPd00Kt3CdPZ2")
+STRIPE_SECRET_KEY = "sk_test_51LuiYnFI1DNn2ggLhEll1XllFOMloFPHTj7yjpRkNd2KctRYLhF7nKJ8vifhbReCBYKPyRECvM84ODIJqXNCqNdk009rNDtCcP"
 
-AUTH_USER_MODEL = "account.UserBase"
-LOGIN_REDIRECT_URL = "/account/dashboard"
-LOGIN_URL = "/account/login"
+AUTH_USER_MODEL = 'account.UserBase'
+LOGIN_REDIRECT_URL = '/account/dashboard'
+LOGIN_URL = '/account/login/'
 
 # Email Settings
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-PUBLISHABLE_KEY = "pk_test_51LuiYnFI1DNn2ggLR4SWUi7OCUZted9QKctsh8YHDnfHa6xPH1jkhiTaglocKIsXKLkeQkrZQ0oeF1hBB8UYhqPd00Kt3CdPZ2"
-SECRET_KEY = "sk_test_51LuiYnFI1DNn2ggLhEll1XllFOMloFPHTj7yjpRkNd2KctRYLhF7nKJ8vifhbReCBYKPyRECvM84ODIJqXNCqNdk009rNDtCcP"
-STRIPE_ENDPOINT_SECRET = "whsec_4981a5d60bbfed46865afb3635ef910ff03c69bd4d48a6726f3e30a941c46fc3"
+
 

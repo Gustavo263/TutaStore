@@ -5,4 +5,4 @@ from store.models import *
 def book_list(request):
     book = Product.objects.all()
     livro = Product.products.all()
-    return render(request, "store/products/book.html", {"book": book, "livro": livro})
+    return render(request, "store/book.html", {"book": book, "livro": livro})
