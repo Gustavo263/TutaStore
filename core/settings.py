@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["yourdomain.com", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,6 +128,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# JAZZMIN SETTINGS
+JAZZMIN_SETTINGS = {
+    "site_title": "Painel Administrativo",
+    "site_brand": "Administração",
+    "welcome_sign": "Bem-vindo(a) ao Painel Admin",
+}
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
@@ -146,7 +154,6 @@ LOGIN_URL = '/account/login/'
 # Email Settings
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 
 
