@@ -152,7 +152,7 @@ STRIPE_SECRET_KEY = (
     "sk_test_51LuiYnFI1DNn2ggLhEll1XllFOMloFPHTj7yjpRkNd2KctRYLhF7nKJ8vifhbReCBYKPyRECvM84ODIJqXNCqNdk009rNDtCcP"
 )
 
-AUTH_USER_MODEL = "account.UserBase"
+AUTH_USER_MODEL = "account.Customer"
 LOGIN_REDIRECT_URL = "/account/dashboard"
 LOGIN_URL = "/account/login/"
 
