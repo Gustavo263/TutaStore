@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -10,14 +11,14 @@ class Category(MPTTModel):
     """
 
     name = models.CharField(
-        verbose_name=_("Category Name"),
-        help_text=_("Required and unique"),
+        verbose_name=_("Nome da Categoria"),
+        help_text=_("Obrigatório"),
         max_length=255,
         unique=True,
     )
-    slug = models.SlugField(verbose_name=_("Category safe URL"), max_length=255, unique=True)
+    slug = models.SlugField(verbose_name=_("URL da categoria"), max_length=255, unique=True)
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(verbose_name=_("Ativar Produto"), default=True)
 
     class MPTTMeta:
         order_insertion_by = ["name"]
@@ -39,8 +40,8 @@ class ProductType(models.Model):
     of products that are for sale.
     """
 
-    name = models.CharField(verbose_name=_("Product Name"), help_text=_("Required"), max_length=255, unique=True)
-    is_active = models.BooleanField(default=True)
+    name = models.CharField(verbose_name=_("Tipo do Produto"), help_text=_("Obrigatório"), max_length=255, unique=True)
+    is_active = models.BooleanField(verbose_name=_("Ativar Produto"), default=True)
 
     class Meta:
         verbose_name = _("Product Type")
@@ -57,7 +58,7 @@ class ProductSpecification(models.Model):
     """
 
     product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
-    name = models.CharField(verbose_name=_("Name"), help_text=_("Required"), max_length=255)
+    name = models.CharField(verbose_name=_("Nome"), help_text=_("Obrigatório"), max_length=255)
 
     class Meta:
         verbose_name = _("Product Specification")
@@ -72,44 +73,45 @@ class Product(models.Model):
     The Product table contining all product items.
     """
 
-    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
-    category = models.ForeignKey(Category, on_delete=models.RESTRICT)
+    product_type = models.ForeignKey(ProductType, verbose_name=_("Tipo do Produto"), on_delete=models.RESTRICT)
+    category = models.ForeignKey(Category, verbose_name=_("Categoria do Produto"), on_delete=models.RESTRICT)
     title = models.CharField(
-        verbose_name=_("title"),
-        help_text=_("Required"),
+        verbose_name=_("Título "),
+        help_text=_("Obrigatório"),
         max_length=255,
     )
-    description = models.TextField(verbose_name=_("description"), help_text=_("Not Required"), blank=True)
+    description = models.TextField(verbose_name=_("Descrição"), help_text=_("Não Obrigatório"), blank=True)
     slug = models.SlugField(max_length=255)
     regular_price = models.DecimalField(
-        verbose_name=_("Regular price"),
-        help_text=_("Maximum 999.99"),
+        verbose_name=_("Preço regular"),
+        help_text=_("Máximo 999.99"),
         error_messages={
             "name": {
-                "max_length": _("The price must be between 0 and 999.99."),
+                "max_length": _("O preço deve estar entre 0 e 999.99."),
             },
         },
         max_digits=5,
         decimal_places=2,
     )
     discount_price = models.DecimalField(
-        verbose_name=_("Discount price"),
-        help_text=_("Maximum 999.99"),
+        verbose_name=_("Preço com desconto"),
+        help_text=_("Máximo 999.99"),
         error_messages={
             "name": {
-                "max_length": _("The price must be between 0 and 999.99."),
+                "max_length": _("O preço deve estar entre 0 e 999.99."),
             },
         },
         max_digits=5,
         decimal_places=2,
     )
     is_active = models.BooleanField(
-        verbose_name=_("Product visibility"),
-        help_text=_("Change product visibility"),
+        verbose_name=_("Visibilidade do produto"),
+        help_text=_("Alterar a visibilidade do produto"),
         default=True,
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)
 
     class Meta:
         ordering = ("-created_at",)
@@ -132,8 +134,8 @@ class ProductSpecificationValue(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
     value = models.CharField(
-        verbose_name=_("value"),
-        help_text=_("Product specification value (maximum of 255 words"),
+        verbose_name=_("Valor"),
+        help_text=_("Valor da especificação do produto (máximo de 255 palavras)"),
         max_length=255,
     )
 
@@ -152,19 +154,19 @@ class ProductImage(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
     image = models.ImageField(
-        verbose_name=_("image"),
-        help_text=_("Upload a product image"),
+        verbose_name=_("Imagem"),
+        help_text=_("Carregue uma imagem do produto"),
         upload_to="images/",
         default="images/default.png",
     )
     alt_text = models.CharField(
-        verbose_name=_("Alturnative text"),
-        help_text=_("Please add alturnative text"),
+        verbose_name=_("Texto alternativo"),
+        help_text=_("Por favor, adicione texto alternativo"),
         max_length=255,
         null=True,
         blank=True,
     )
-    is_feature = models.BooleanField(default=False)
+    is_feature = models.BooleanField(verbose_name=_("Principal"), default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 

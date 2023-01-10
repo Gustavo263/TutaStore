@@ -7,6 +7,17 @@
 {% endblock %}
 {% block content %}
 
+
+
+<div class="container">
+  {% if messages %}
+  <div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+  {% for message in messages  %}
+    {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Sua Lista de desejos</a>.
+  {% endfor %}
+</div>
+{% endif %}
+
 <head>
   <link rel="stylesheet" href="{% static 'store/css/style.css' %}"
 </head>
@@ -34,8 +45,7 @@
         <hr>
         <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Adicionar ao
           carrinho</button>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-light fw500">Adicionar aos
-          Favoritos</button>
+      <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true">Adicionar a lista de desejos</a>
           <div><span class="lead text-muted">{{product.description}}</b></p></div>
       </div>
     </div>
