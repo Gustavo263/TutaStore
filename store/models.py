@@ -17,7 +17,14 @@ class Category(MPTTModel):
         unique=True,
     )
     slug = models.SlugField(verbose_name=_("URL da categoria"), max_length=255, unique=True)
-    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
+    parent = TreeForeignKey(
+        "self",
+        verbose_name=_("Categoria Principal"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="children",
+    )
     is_active = models.BooleanField(verbose_name=_("Ativar Produto"), default=True)
 
     class MPTTMeta:
@@ -35,11 +42,6 @@ class Category(MPTTModel):
 
 
 class ProductType(models.Model):
-    """
-    ProductType Table will provide a list of the different types
-    of products that are for sale.
-    """
-
     name = models.CharField(verbose_name=_("Tipo do Produto"), help_text=_("Obrigatório"), max_length=255, unique=True)
     is_active = models.BooleanField(verbose_name=_("Ativar Produto"), default=True)
 
@@ -111,7 +113,9 @@ class Product(models.Model):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
-    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)
+    users_wishlist = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, verbose_name=_("Lista de desejos"), related_name="user_wishlist", blank=True
+    )
 
     class Meta:
         ordering = ("-created_at",)

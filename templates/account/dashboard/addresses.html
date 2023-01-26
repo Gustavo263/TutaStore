@@ -1,10 +1,10 @@
 {% extends "../sub_base.html" %}
-{% block title %}Edit Addresses{% endblock %}
+{% block title %}Editar Endereços{% endblock %}
 
 
 
 {% block sub_content %}
-<h1 class="h2">Seus endereços</h1>
+<h1 class="h2">Seus endereços de entrega</h1>
 <div>Gerencie seus <b>endereços</b> e preferências de entrega</div>
 <hr />
 <div class="container px-0">
@@ -21,7 +21,7 @@
                   <path
                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                 </svg>
-                <h1 class="h5">Adicionar Endereços</h1>
+                <h1 class="h5">Adicionar endereço</h1>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
           <p class="card-text m-0">{{address.postcode}}</p>
           <p class="card-text m-0">{{address.phone}}</p>
           <div class="pt-5">
-            <a href="{% url 'account:edit_address' address.id  %}" class="text-decoration-none">Editar</a>
+            <a href="{% url 'account:edit_address' address.id %}" class="text-decoration-none">Editar</a>
             |
             <a href="{% url 'account:delete_address' address.id %}" class="text-decoration-none">Deletar</a>
             {% if not address.default %}

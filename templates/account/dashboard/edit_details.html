@@ -2,16 +2,17 @@
 {% block title %}Editar Perfil{% endblock %}
 {% block sub_content %}
 
+<div class="col-6 mx-auto">
 <form class="account-form" method="post" enctype="multipart/form-data">
     {% if user_form.is_valid and profile_form.is_valid  %}
     <div class="alert alert-primary" role="alert">
         Detalhes atualizados com sucesso!
     </div>
     <p class="small text-center pt-0">
-        <a href="{% url "account:dashboard" %}">Volte para o Dashboard</a>
+        <a href="{% url "account:dashboard" %}">Volte para o seu Dashboard</a>
     </p>
     {%else%}
-    <h3>Editar Perfil</h3>
+    <h3>Alterar seus dados</h3>
     <p>Você pode editar sua conta usando o seguinte formulário:</p>
     {% endif %}
     {% if form.errors %}
@@ -24,7 +25,7 @@
     {{ user_form.email }}
     <label class="small font-weight-bold">{{ user_form.first_name.label}}</label>
     {{ user_form.first_name }}
-    <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw-bold w-100" type="submit" value="Save changes">Salvar
+    <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw-bold w-100" type="submit" value="Save changes">Salve suas
         Mudanças</button>
     <hr class="mb-3">
 </form>
@@ -34,5 +35,6 @@
     <p>Tem certeza de que deseja excluir sua conta?</p>
     <button type="submit" role="button" class="btn btn-danger btn-block py-2 mb-4 mt-5 fw-bold w-100">Deletar</button>
 </form>
+</div>
 
 {% endblock %}

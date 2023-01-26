@@ -37,7 +37,7 @@ class CustomAccountManager(BaseUserManager):
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email"), unique=True)
     name = models.CharField(max_length=150)
     mobile = models.CharField(max_length=20, blank=True)
     is_active = models.BooleanField(default=False)
@@ -79,11 +79,11 @@ class Address(models.Model):
     postcode = models.CharField(_("CEP"), max_length=50)
     address_line = models.CharField(_("Endereço 1"), max_length=255)
     address_line2 = models.CharField(_("Endereço 2"), max_length=255)
-    town_city = models.CharField(_("Cidade/estado"), max_length=150)
+    town_city = models.CharField(_("Cidade/Estado"), max_length=150)
     delivery_instructions = models.CharField(_("Instruções de entrega"), max_length=255)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Updated at"), auto_now_add=True)
-    default = models.BooleanField(_("Default"), default=False)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    default = models.BooleanField(_("Padrão"), default=False)
 
     class Meta:
         verbose_name = "Address"

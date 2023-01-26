@@ -4,10 +4,10 @@
 
 <form class="account-form" action="{% url 'account:login' %}" method="post">
   {% csrf_token %}
-  <h3 class="mb-4">Tela de Login</h3>
+  <h3 class="mb-4">Entrar</h3>
   {% if form.errors %}
   <div class="alert alert-primary" role="alert">
-    Erro: Nome de usuário ou senha incorretos!
+    Erro: Email/Usuário ou senha incorretos!
   </div>
   {% endif %}
   <label class="form-label">{{ form.username.label}}</label>
@@ -16,12 +16,12 @@
   {{ form.password}}
   <div class="d-grid gap-2">
     <input type="hidden" name="next" value="{{ next }}">
-    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Entrar
+    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Entrar agora
     </button>
   </div>
   <div class="flex-column justify-content-center mx-auto pb-3">
-    <div class="text-center"><a href="{% url "account:register" %}">Crie a sua conta aqui</a></div>
-    <div class="text-center"><a href="{% url "account:pwdreset" %}">Esqueceu sua senha?</a></div>
+    <div class="text-center"><a href="{% url "account:register" %}">Crie uma conta</a></div>
+    <div class="text-center"><a href="{% url "account:pwdreset" %}">Esqueceu a senha?</a></div>
   </div>
 </form>
 

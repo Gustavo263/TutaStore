@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+from orders.models import Order
 from orders.views import user_orders
 from store.models import Product
 
@@ -28,10 +29,10 @@ def add_to_wishlist(request, id):
     product = get_object_or_404(Product, id=id)
     if product.users_wishlist.filter(id=request.user.id).exists():
         product.users_wishlist.remove(request.user)
-        messages.success(request, product.title + " removido da sua lista de desejo...")
+        messages.success(request, '"' + product.title + '"' + " foi removido da sua lista de desejos.")
     else:
         product.users_wishlist.add(request.user)
-        messages.success(request, product.title + " adicionado à sua lista de desejo...")
+        messages.success(request, '"' + product.title + '"' + " foi adicionado à sua lista de desejos.")
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
@@ -156,4 +157,17 @@ def delete_address(request, id):
 def set_default(request, id):
     Address.objects.filter(customer=request.user, default=True).update(default=False)
     Address.objects.filter(pk=id, customer=request.user).update(default=True)
+
+    previous_url = request.META.get("HTTP_REFERER")
+
+    if "delivery_address" in previous_url:
+        return redirect("checkout:delivery_address")
+
     return redirect("account:addresses")
+
+
+@login_required
+def user_orders(request):
+    user_id = request.user.id
+    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)
+    return render(request, "account/dashboard/user_orders.html", {"orders": orders})

@@ -9,4 +9,3 @@ pillow
 stripe
 coverage
 six
-jazzmin

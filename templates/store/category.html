@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block title %}
-{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% if category %}{{ category.name }}{% else %}Produtos{% endif %}
 {% endblock %}
 {% block content %}
 
@@ -9,7 +9,7 @@
     <h1 class="h2">{{ category.name|title }}</h1>
   </div>
   <div class="col-12 d-flex justify-content-between">
-    <div><b>Popular</b> products purchased</div>
+    <div><b>Livros de {{category.name}}</b></div>
   </div>
   <hr />
 </div>
@@ -17,7 +17,7 @@
   <div class="row">
     <div class="album">
       {% if not products %}
-      <div class="col-12">There are currently no products active <a href="{% url 'store:store_home' %}">Home</a></div>
+      <div class="col-12">Atualmente não há produtos ativos <a href="{% url 'store:store_home' %}">Início</a></div>
       {% else %}
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
         {% for product in products %}
@@ -33,7 +33,7 @@
                 <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
               </p>
               <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">£{{product.regular_price}}</small>
+                <small class="text-muted">R${{product.regular_price}}</small>
               </div>
             </div>
           </div>
@@ -46,3 +46,4 @@
 </div>
 
 {% endblock %}
+

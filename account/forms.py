@@ -16,11 +16,9 @@ class UserAddressForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["full_name"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Nome Completo "}
+            {"class": "form-control mb-2 account-form", "placeholder": "Nome Completo"}
         )
-        self.fields["phone"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Número de Telefone"}
-        )
+        self.fields["phone"].widget.attrs.update({"class": "form-control mb-2 account-form", "placeholder": "+55"})
         self.fields["address_line"].widget.attrs.update(
             {"class": "form-control mb-2 account-form", "placeholder": "Endereço 1"}
         )
@@ -30,13 +28,18 @@ class UserAddressForm(forms.ModelForm):
         self.fields["town_city"].widget.attrs.update(
             {"class": "form-control mb-2 account-form", "placeholder": "Cidade"}
         )
-        self.fields["postcode"].widget.attrs.update({"class": "form-control mb-2 account-form", "placeholder": "CEP"})
+        self.fields["postcode"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Codigo Postal"}
+        )
 
 
 class UserLoginForm(AuthenticationForm):
 
     username = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control mb-3", "placeholder": "Username", "id": "login-username"})
+        label="Email/Usuário",
+        widget=forms.TextInput(
+            attrs={"class": "form-control mb-3", "placeholder": "Email/Usuário", "id": "login-username"}
+        ),
     )
     password = forms.CharField(
         label="Senha",
@@ -52,7 +55,7 @@ class UserLoginForm(AuthenticationForm):
 
 class RegistrationForm(forms.ModelForm):
 
-    user_name = forms.CharField(label="Username", min_length=4, max_length=50, help_text="Necessário")
+    user_name = forms.CharField(label="Nome de usuário", min_length=4, max_length=50, help_text="Required")
     email = forms.EmailField(
         max_length=100, help_text="Required", error_messages={"required": "Desculpe, você vai precisar de um e-mail"}
     )
@@ -82,7 +85,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
         if Customer.objects.filter(email=email).exists():
-            raise forms.ValidationError("Por favor, use outro e-mail, que já está sendo usado")
+            raise forms.ValidationError("Por favor, use outro e-mail, que já está sendo usado.")
         return email
 
     def __init__(self, *args, **kwargs):
@@ -106,21 +109,21 @@ class PwdResetForm(PasswordResetForm):
         email = self.cleaned_data["email"]
         u = Customer.objects.filter(email=email)
         if not u:
-            raise forms.ValidationError("Infelizmente, não conseguimos encontrar esse endereço de e-mail")
+            raise forms.ValidationError("Infelizmente não conseguimos encontrar esse endereço de e-mail.")
         return email
 
 
 class PwdResetConfirmForm(SetPasswordForm):
     new_password1 = forms.CharField(
-        label="Nova Senha",
+        label="New password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control mb-3", "placeholder": "Nova senha", "id": "form-newpass"}
+            attrs={"class": "form-control mb-3", "placeholder": "Nova Senha", "id": "form-newpass"}
         ),
     )
     new_password2 = forms.CharField(
-        label="Repita a senha",
+        label="Repeat password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control mb-3", "placeholder": "Nova senha", "id": "form-new-pass2"}
+            attrs={"class": "form-control mb-3", "placeholder": "Nova Senha", "id": "form-new-pass2"}
         ),
     )
 
@@ -136,13 +139,13 @@ class UserEditForm(forms.ModelForm):
     )
 
     user_name = forms.CharField(
-        label="Firstname",
+        label="Nome",
         min_length=4,
         max_length=50,
         widget=forms.TextInput(
             attrs={
                 "class": "form-control mb-3",
-                "placeholder": "Username",
+                "placeholder": "Seu nome",
                 "id": "form-firstname",
                 "readonly": "readonly",
             }
@@ -150,11 +153,11 @@ class UserEditForm(forms.ModelForm):
     )
 
     first_name = forms.CharField(
-        label="Username",
+        label="Usuário",
         min_length=4,
         max_length=50,
         widget=forms.TextInput(
-            attrs={"class": "form-control mb-3", "placeholder": "Firstname", "id": "form-lastname"}
+            attrs={"class": "form-control mb-3", "placeholder": "Nome de usuário", "id": "form-lastname"}
         ),
     )
 

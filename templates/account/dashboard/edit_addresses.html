@@ -1,15 +1,15 @@
 {% extends "../sub_base.html" %}
-{% block title %}Edit Addresses{% endblock %}
+{% block title %}Editar Endereços{% endblock %}
 
 {% block sub_content %}
 <div class="col-6 mx-auto">
-  <h1 class="h3">Create/Edit Address</h1>
-  <div>Add a new delivery <b>address</b> and delivery preferences</div>
+  <h1 class="h3">Criar/editar Endereço</h1>
+  <div>Adicione um novo <b>endereço</b> de entrega e preferências de entrega</div>
   <hr />
   <form name="address_form" class="account-form" method="post" enctype="multipart/form-data">
     {% if form.errors %}
     <div class="alert alert-primary" role="alert">
-      Error: Please try again!
+      Erro: Por favor, tente novamente!
     </div>
     {% endif %}
     {% csrf_token %}
@@ -26,7 +26,7 @@
     <label class="small fw-bold">{{ form.postcode.label}}</label>
     {{ form.postcode }}
     <button class="btn btn-primary btn-block py-2 mb-4 mt-4 fw-bold w-100" type="button" value="Submit" onclick="submitForm()">
-    Add Address
+      Adicionar endereço
     </button>
   </form>
 

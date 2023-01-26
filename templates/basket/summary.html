@@ -1,29 +1,29 @@
 {% extends "../base.html" %}
 {% load static %}
-{% block title %}Carrinho de Compras{%endblock %}
+{% block title %}Resumo do Carrinho{%endblock %}
 {% block content %}
 
 <div class="container">
   <div class="col-12">
-    <h1 class="h2">Seu Carrinho</h1>
+    <h1 class="h2">Seu carrinho</h1>
   </div>
   <div class="col-12">
-    <p>Gerencie seu <b>itens</b> no seu carrinho</p>
+    <p>Gerencie seus <b>itens</b> em seu carrinho</p>
   </div>
   <hr />
 </div>
 <div class="container">
   <div class="row g-3">
     {% if basket|length == 0 %}
-    <div class="col-12">Seu carrinho está vazio <a href="{% url 'store:store_home' %}">Início</a></div>
+    <div class="col-12">Seu carrinho está vazio <a href="{% url 'store:store_home' %}">Compre agora</a></div>
     {% else %}
     <div class="col-12 bg-light p-3 d-flex justify-content-between">
       <div class="d-flex d-flex-inline">
-        <div class="pe-3">Pedidos</div>
+        <div class="pe-3">Order</div>
         <div class="dropdown">
           <a class="text-reset text-decoration-none dropdown-toggle" href="#" role="link" id="dropdownLink"
             data-bs-toggle="dropdown" aria-expanded="false">
-            Opções de Frete
+            Shipping options
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
               class="bi bi-chevron-down" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -31,8 +31,8 @@
             </svg>
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownLink">
-            <li class="item small">Frente classic</li>
-            <li class="item small">Frete premium</li>
+            <li class="item small">Entrega no dia seguinte</li>
+            <li class="item small">Entrega premium</li>
           </ul>
         </div>
       </div>
@@ -40,14 +40,14 @@
         <div class="">Produto: <span class="fw-bold">R$</span>
           <div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div>
         </div>
-        <div id="">Envio <span class="small">(Entrega no dia seguinte)</span>: <span class="fw-bold">R$11.50</span></div>
-        <div class="pt-2">Total a pagar: <span class="fw-bold h5">R$</span><span id="total"
+        <div id="">Frete <span class="small">(entrega no dia seguinte)</span>: <span class="fw-bold">R$11.50</span></div>
+        <div class="pt-2">Total: <span class="fw-bold h5">R$</span><span id="total"
             class="fw-bold h5">{{basket.get_total_price}}</span></div>
       </div>
     </div>
     <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
       <div class="d-grid gap-2 ">
-        <a role="button" href="{% url "payment:basket" %}" class="btn btn-success fw-bold" type="button">Confirmar compra</a>
+        <a role="button" href="{% url 'checkout:deliverychoices' %}" class="btn btn-success fw-bold" type="button">Check-out com segurança</a>
         <button class="btn btn-light" type="button">Guardar para depois</button>
       </div>
     </div>
@@ -58,10 +58,10 @@
         <div class="row g-0">
           <div class="col-md-2 d-none d-md-block">
             {% for image in product.product_image.all %}
-                {% if image.is_feature %}
-                  <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
-                {% endif %}
-              {% endfor %}
+            {% if image.is_feature%}
+            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+            {% endif %}
+            {% endfor %}
           </div>
           <div class="col-md-10 ps-md-3">
             <div class="card-body p-1">
@@ -77,7 +77,7 @@
                 <option value="">4</option>
               </select>
               <a type="button" id="update-button" data-index="{{product.id}}"
-                class="update-button text-decoration-none small ps-3">Update</a>
+                class="update-button text-decoration-none small ps-3">Editar</a>
               <a type="button" id="delete-button" data-index="{{product.id}}"
                 class="delete-button text-decoration-none small">Deletar</a>
             </div>

@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     "basket",
     "book",
     "account",
-    "payment",
     "orders",
     "mptt",
     "core",
+    "checkout",
 ]
 
 MIDDLEWARE = [
@@ -128,14 +128,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "/static/"
-
 # JAZZMIN SETTINGS
 JAZZMIN_SETTINGS = {
     "site_title": "Painel Administrativo",
     "site_brand": "Administração",
     "welcome_sign": "Bem-vindo(a) ao Painel Admin",
 }
+
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
@@ -144,13 +144,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 BASKET_SESSION_ID = "basket"
 
-os.environ.setdefault(
-    "STRIPE_PUBLISHABLE_KEY",
-    "pk_test_51LuiYnFI1DNn2ggLR4SWUi7OCUZted9QKctsh8YHDnfHa6xPH1jkhiTaglocKIsXKLkeQkrZQ0oeF1hBB8UYhqPd00Kt3CdPZ2",
-)
-STRIPE_SECRET_KEY = (
-    "sk_test_51LuiYnFI1DNn2ggLhEll1XllFOMloFPHTj7yjpRkNd2KctRYLhF7nKJ8vifhbReCBYKPyRECvM84ODIJqXNCqNdk009rNDtCcP"
-)
 
 AUTH_USER_MODEL = "account.Customer"
 LOGIN_REDIRECT_URL = "/account/dashboard"
